@@ -34,11 +34,23 @@
             color: #ff007f;
         }
 
-        .nav-links a {
+        .nav-links a, .cart-icon {
             color: #ffffff;
             text-decoration: none;
             margin-left: 20px;
             font-weight: 500;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .cart-icon span {
+            background-color: #ff007f;
+            padding: 2px 8px;
+            border-radius: 50%;
+            font-size: 0.8rem;
+            margin-left: 5px;
         }
 
         .hero {
@@ -177,25 +189,107 @@
             color: #0b0b0b;
         }
 
+        /* --- SHOPPING CART SIDEBAR CSS --- */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 350px;
+            height: 100%;
+            background-color: #111111;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+            transition: right 0.3s ease;
+            z-index: 1000;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            box-sizing: border-box;
+            border-left: 1px solid #222222;
+        }
+
+        .cart-sidebar.open {
+            right: 0;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #222222;
+            padding-bottom: 15px;
+        }
+
+        .close-cart {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .cart-items {
+            flex-grow: 1;
+            overflow-y: auto;
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+
+        .cart-item-details div {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .cart-item-details span {
+            color: #888;
+            font-size: 0.85rem;
+        }
+
+        .remove-item {
+            background: none;
+            border: none;
+            color: #ff007f;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .cart-footer-box {
+            border-top: 1px solid #222222;
+            padding-top: 15px;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .checkout-btn {
+            background-color: #ff007f;
+            border: none;
+            color: white;
+            font-size: 1rem;
+        }
+        .checkout-btn:hover {
+            background-color: white;
+            color: black;
+        }
+
         .contact-footer {
             text-align: center;
             margin-top: 80px;
             padding: 40px 20px;
             border-top: 1px solid #222222;
             color: #aaaaaa;
-        }
-
-        .instagram-link {
-            display: inline-block;
-            margin-top: 15px;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 30px;
-            text-decoration: none;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
         }
     </style>
 </head>
@@ -205,7 +299,7 @@
         <div class="logo">C.A.H.SELLZ</div>
         <nav class="nav-links">
             <a href="#shop">Shop</a>
-            <a href="#contact">Contact</a>
+            <button class="cart-icon" onclick="toggleCart()">Cart <span id="cart-count">0</span></button>
         </nav>
     </header>
 
@@ -226,14 +320,14 @@
                 <div class="card-info">
                     <div class="item-name">Sp5der Logo Hoodie Varoon</div>
                     <div class="item-details">
-                        <span class="price">$70</span>
+                        <span class="price" data-price="70">$70</span>
                         <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
                         </select>
                     </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
                 </div>
             </div>
 
@@ -246,14 +340,14 @@
                 <div class="card-info">
                     <div class="item-name">Sp5der Phantom Web Hoodie Black</div>
                     <div class="item-details">
-                        <span class="price">$70</span>
+                        <span class="price" data-price="70">$70</span>
                         <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
                         </select>
                     </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
                 </div>
             </div>
 
@@ -266,14 +360,14 @@
                 <div class="card-info">
                     <div class="item-name">SP5DER BROWN Hoodie</div>
                     <div class="item-details">
-                        <span class="price">$70</span>
+                        <span class="price" data-price="70">$70</span>
                         <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
                         </select>
                     </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
                 </div>
             </div>
 
@@ -286,14 +380,14 @@
                 <div class="card-info">
                     <div class="item-name">Sp5der Punk V2 Hoodie Slate Grey</div>
                     <div class="item-details">
-                        <span class="price">$70</span>
+                        <span class="price" data-price="70">$70</span>
                         <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
                         </select>
                     </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
                 </div>
             </div>
 
@@ -306,14 +400,14 @@
                 <div class="card-info">
                     <div class="item-name">Sp5der P*NK V2 Hoodie Pink</div>
                     <div class="item-details">
-                        <span class="price">$70</span>
+                        <span class="price" data-price="70">$70</span>
                         <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
                         </select>
                     </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
                 </div>
             </div>
 
@@ -326,145 +420,126 @@
                 <div class="card-info">
                     <div class="item-name">Sp5der Beluga Hoodie Heather Grey</div>
                     <div class="item-details">
-                        <span class="price">$70</span>
+                        <span class="price" data-price="70">$70</span>
                         <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
                         </select>
                     </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
-                </div>
-            </div>
-
-            <!-- HOODIE 7 -->
-            <div class="card">
-                <span class="tag">1:1 Batch</span>
-                <div class="image-container">
-                    <img src="NO_IMAGE.jpg" alt="Sp5der OG WEB HOODIE">
-                </div>
-                <div class="card-info">
-                    <div class="item-name">Sp5der OG WEB HOODIE</div>
-                    <div class="item-details">
-                        <span class="price">$70</span>
-                        <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
-                        </select>
-                    </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
-                </div>
-            </div>
-
-            <!-- HOODIE 8 -->
-            <div class="card">
-                <span class="tag">1:1 Batch</span>
-                <div class="image-container">
-                    <img src="IMG_0799.jpeg" alt="Sp5der P*NK Hoodie Black">
-                </div>
-                <div class="card-info">
-                    <div class="item-name">Sp5der P*NK Hoodie Black</div>
-                    <div class="item-details">
-                        <span class="price">$70</span>
-                        <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
-                        </select>
-                    </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
-                </div>
-            </div>
-
-            <!-- HOODIE 9 -->
-            <div class="card">
-                <span class="tag">1:1 Batch</span>
-                <div class="image-container">
-                    <img src="NO_IMAGE.jpg" alt="Sp5der Web Hoodie Sky Blue">
-                </div>
-                <div class="card-info">
-                    <div class="item-name">Sp5der Web Hoodie Sky Blue</div>
-                    <div class="item-details">
-                        <span class="price">$70</span>
-                        <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
-                        </select>
-                    </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
-                </div>
-            </div>
-
-            <!-- HOODIE 10 -->
-            <div class="card">
-                <span class="tag">1:1 Batch</span>
-                <div class="image-container">
-                    <img src="IMG_0802.jpeg" alt="Sp5der P*NK Hoodie Pink">
-                </div>
-                <div class="card-info">
-                    <div class="item-name">Sp5der P*NK Hoodie Pink</div>
-                    <div class="item-details">
-                        <span class="price">$70</span>
-                        <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
-                        </select>
-                    </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
-                </div>
-            </div>
-
-            <!-- HOODIE 11 -->
-            <div class="card">
-                <span class="tag">1:1 Batch</span>
-                <div class="image-container">
-                    <img src="NO_IMAGE.jpg" alt="Sp5der Wait Web Hoodie Slate Grey">
-                </div>
-                <div class="card-info">
-                    <div class="item-name">Sp5der Wait Web Hoodie Slate Grey</div>
-                    <div class="item-details">
-                        <span class="price">$70</span>
-                        <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
-                        </select>
-                    </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
-                </div>
-            </div>
-
-            <!-- HOODIE 12 -->
-            <div class="card">
-                <span class="tag">1:1 Batch</span>
-                <div class="image-container">
-                    <img src="NO_IMAGE.jpg" alt="Sp5der OG Web Hoodie Heather Grey">
-                </div>
-                <div class="card-info">
-                    <div class="item-name">Sp5der OG Web Hoodie Heather Grey</div>
-                    <div class="item-details">
-                        <span class="price">$70</span>
-                        <select class="size-selector">
-                            <option>Size: S</option>
-                            <option>Size: M</option>
-                            <option>Size: L</option>
-                        </select>
-                    </div>
-                    <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="btn">Inquire to Buy</a>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
                 </div>
             </div>
 
         </div>
     </main>
 
+    <!-- --- SHOPPING CART SIDEBAR HTML --- -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="close-cart" onclick="toggleCart()">&times;</button>
+        </div>
+        <div class="cart-items" id="cartItems">
+            <!-- JavaScript will insert items here dynamically -->
+        </div>
+        <div class="cart-footer-box">
+            <div class="cart-total">
+                <span>Total:</span>
+                <span id="cartTotalValue">$0</span>
+            </div>
+            <button class="btn checkout-btn" onclick="processCheckout()">Proceed to Checkout</button>
+        </div>
+    </div>
+
     <footer class="contact-footer" id="contact">
-        <p>Interested in buying? DM me on Instagram to secure your order.</p>
-        <a href="https://instagram.com/C.A.H.SELLZ" target="_blank" class="instagram-link">DM @C.A.H.SELLZ</a>
-        <p style="margin-top: 25px; font-size: 0.85rem; color: #444444;">&copy; 2026 C.A.H.SELLZ. All rights reserved.</p>
+        <p>&copy; 2026 C.A.H.SELLZ. All rights reserved.</p>
     </footer>
 
+    <!-- --- SHOPPING CART JAVASCRIPT --- -->
+    <script>
+        let cart = [];
+
+        function toggleCart() {
+            document.getElementById('cartSidebar').classList.toggle('open');
+        }
+
+        // Add event listeners to all "Add To Cart" buttons
+        document.querySelectorAll('.add-to-cart-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const card = e.target.closest('.card');
+                const name = card.querySelector('.item-name').innerText;
+                const price = parseFloat(card.querySelector('.price').getAttribute('data-price'));
+                const size = card.querySelector('.size-selector').value;
+
+                addToCart(name, price, size);
+            });
+        });
+
+        function addToCart(name, price, size) {
+            // Check if item with same size already exists
+            const existingItem = cart.find(item => item.name === name && item.size === size);
+
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({ name, price, size, quantity: 1 });
+            }
+
+            updateCartUI();
+            // Open the cart automatically when item is added
+            document.getElementById('cartSidebar').classList.add('open');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const cartItemsContainer = document.getElementById('cartItems');
+            const cartCount = document.getElementById('cartCount');
+            const cartTotalValue = document.getElementById('cartTotalValue');
+            
+            cartItemsContainer.innerHTML = '';
+            let total = 0;
+            let totalItems = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price * item.quantity;
+                totalItems += item.quantity;
+
+                const itemHTML = `
+                    <div class="cart-item">
+                        <div class="cart-item-details">
+                            <div>${item.name}</div>
+                            <span>Size: ${item.size} | Qty: ${item.quantity}</span>
+                        </div>
+                        <div>
+                            <div style="font-weight: bold; margin-bottom: 5px;">$${item.price * item.quantity}</div>
+                            <button class="remove-item" onclick="removeFromCart(${index})">Remove</button>
+                        </div>
+                    </div>
+                `;
+                cartItemsContainer.innerHTML += itemHTML;
+            });
+
+            cartCount.innerText = totalItems;
+            cartTotalValue.innerText = `$${total}`;
+        }
+
+        // --- PAYMENT SYSTEM INTEGRATION ---
+        function processCheckout() {
+            if (cart.length === 0) {
+                alert("Your cart is empty!");
+                return;
+            }
+
+            alert("Redirecting to secure website checkout payment page...");
+            
+            // To make this take real credit card money, use a free integration like Stripe Checkout:
+            // window.location.href = "YOUR_STRIPE_CHECKOUT_LINK";
+        }
+    </script>
 </body>
 </html>
