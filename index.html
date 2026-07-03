@@ -34,7 +34,12 @@
             color: #ff007f;
         }
 
-        .nav-links a, .cart-icon {
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a, .cart-btn-nav {
             color: #ffffff;
             text-decoration: none;
             margin-left: 20px;
@@ -43,14 +48,16 @@
             background: none;
             border: none;
             font-size: 1rem;
+            font-family: inherit;
         }
 
-        .cart-icon span {
+        .cart-btn-nav span {
             background-color: #ff007f;
             padding: 2px 8px;
             border-radius: 50%;
             font-size: 0.8rem;
             margin-left: 5px;
+            font-weight: bold;
         }
 
         .hero {
@@ -182,6 +189,7 @@
             text-decoration: none;
             box-sizing: border-box;
             transition: background 0.2s, color 0.2s;
+            font-family: inherit;
         }
 
         .btn:hover {
@@ -189,7 +197,7 @@
             color: #0b0b0b;
         }
 
-        /* --- SHOPPING CART SIDEBAR CSS --- */
+        /* --- SIDEBAR CART STYLES --- */
         .cart-sidebar {
             position: fixed;
             top: 0;
@@ -197,8 +205,8 @@
             width: 350px;
             height: 100%;
             background-color: #111111;
-            box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-            transition: right 0.3s ease;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.7);
+            transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             z-index: 1000;
             padding: 20px;
             display: flex;
@@ -219,12 +227,20 @@
             padding-bottom: 15px;
         }
 
+        .cart-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
         .close-cart {
             background: none;
             border: none;
             color: white;
-            font-size: 1.5rem;
+            font-size: 2rem;
             cursor: pointer;
+            line-height: 1;
         }
 
         .cart-items {
@@ -237,7 +253,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             padding-bottom: 15px;
             border-bottom: 1px solid #1a1a1a;
         }
@@ -245,10 +261,11 @@
         .cart-item-details div {
             font-weight: bold;
             font-size: 0.95rem;
+            margin-bottom: 4px;
         }
 
         .cart-item-details span {
-            color: #888;
+            color: #aaaaaa;
             font-size: 0.85rem;
         }
 
@@ -258,6 +275,10 @@
             color: #ff007f;
             cursor: pointer;
             font-size: 0.85rem;
+            padding: 0;
+            margin-top: 5px;
+            text-align: right;
+            display: block;
         }
 
         .cart-footer-box {
@@ -275,12 +296,13 @@
 
         .checkout-btn {
             background-color: #ff007f;
-            border: none;
+            border: 2px solid #ff007f;
             color: white;
-            font-size: 1rem;
         }
+        
         .checkout-btn:hover {
             background-color: white;
+            border-color: white;
             color: black;
         }
 
@@ -299,7 +321,7 @@
         <div class="logo">C.A.H.SELLZ</div>
         <nav class="nav-links">
             <a href="#shop">Shop</a>
-            <button class="cart-icon" onclick="toggleCart()">Cart <span id="cart-count">0</span></button>
+            <button class="cart-btn-nav" id="cartNavButton">Cart <span id="cart-count">0</span></button>
         </nav>
     </header>
 
@@ -315,12 +337,12 @@
             <div class="card">
                 <span class="tag">1:1 Batch</span>
                 <div class="image-container">
-                    <img src="IMG_0808.jpeg" alt="Sp5der Logo Hoodie Varoon">
+                    <img src="IMG_0808.jpeg" alt="Sp5der Logo Hoodie Varoon" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
                 </div>
                 <div class="card-info">
                     <div class="item-name">Sp5der Logo Hoodie Varoon</div>
                     <div class="item-details">
-                        <span class="price" data-price="70">$70</span>
+                        <span class="price">$70</span>
                         <select class="size-selector">
                             <option value="S">Size: S</option>
                             <option value="M">Size: M</option>
@@ -335,12 +357,12 @@
             <div class="card">
                 <span class="tag">1:1 Batch</span>
                 <div class="image-container">
-                    <img src="IMG_0809.jpeg" alt="Sp5der Phantom Web Hoodie Black">
+                    <img src="IMG_0809.jpeg" alt="Sp5der Phantom Web Hoodie Black" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
                 </div>
                 <div class="card-info">
                     <div class="item-name">Sp5der Phantom Web Hoodie Black</div>
                     <div class="item-details">
-                        <span class="price" data-price="70">$70</span>
+                        <span class="price">$70</span>
                         <select class="size-selector">
                             <option value="S">Size: S</option>
                             <option value="M">Size: M</option>
@@ -355,12 +377,12 @@
             <div class="card">
                 <span class="tag">1:1 Batch</span>
                 <div class="image-container">
-                    <img src="IMG_0810.jpeg" alt="SP5DER BROWN Hoodie">
+                    <img src="IMG_0810.jpeg" alt="SP5DER BROWN Hoodie" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
                 </div>
                 <div class="card-info">
                     <div class="item-name">SP5DER BROWN Hoodie</div>
                     <div class="item-details">
-                        <span class="price" data-price="70">$70</span>
+                        <span class="price">$70</span>
                         <select class="size-selector">
                             <option value="S">Size: S</option>
                             <option value="M">Size: M</option>
@@ -375,12 +397,12 @@
             <div class="card">
                 <span class="tag">1:1 Batch</span>
                 <div class="image-container">
-                    <img src="NO_IMAGE.jpg" alt="Sp5der Punk V2 Hoodie Slate Grey">
+                    <img src="NO_IMAGE.jpg" alt="Sp5der Punk V2 Hoodie Slate Grey" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
                 </div>
                 <div class="card-info">
                     <div class="item-name">Sp5der Punk V2 Hoodie Slate Grey</div>
                     <div class="item-details">
-                        <span class="price" data-price="70">$70</span>
+                        <span class="price">$70</span>
                         <select class="size-selector">
                             <option value="S">Size: S</option>
                             <option value="M">Size: M</option>
@@ -395,12 +417,12 @@
             <div class="card">
                 <span class="tag">1:1 Batch</span>
                 <div class="image-container">
-                    <img src="NO_IMAGE.jpg" alt="Sp5der P*NK V2 Hoodie Pink">
+                    <img src="NO_IMAGE.jpg" alt="Sp5der P*NK V2 Hoodie Pink" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
                 </div>
                 <div class="card-info">
                     <div class="item-name">Sp5der P*NK V2 Hoodie Pink</div>
                     <div class="item-details">
-                        <span class="price" data-price="70">$70</span>
+                        <span class="price">$70</span>
                         <select class="size-selector">
                             <option value="S">Size: S</option>
                             <option value="M">Size: M</option>
@@ -415,12 +437,132 @@
             <div class="card">
                 <span class="tag">1:1 Batch</span>
                 <div class="image-container">
-                    <img src="NO_IMAGE.jpg" alt="Sp5der Beluga Hoodie Heather Grey">
+                    <img src="NO_IMAGE.jpg" alt="Sp5der Beluga Hoodie Heather Grey" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
                 </div>
                 <div class="card-info">
                     <div class="item-name">Sp5der Beluga Hoodie Heather Grey</div>
                     <div class="item-details">
-                        <span class="price" data-price="70">$70</span>
+                        <span class="price">$70</span>
+                        <select class="size-selector">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                        </select>
+                    </div>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
+                </div>
+            </div>
+
+            <!-- HOODIE 7 -->
+            <div class="card">
+                <span class="tag">1:1 Batch</span>
+                <div class="image-container">
+                    <img src="NO_IMAGE.jpg" alt="Sp5der OG WEB HOODIE" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
+                </div>
+                <div class="card-info">
+                    <div class="item-name">Sp5der OG WEB HOODIE</div>
+                    <div class="item-details">
+                        <span class="price">$70</span>
+                        <select class="size-selector">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                        </select>
+                    </div>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
+                </div>
+            </div>
+
+            <!-- HOODIE 8 -->
+            <div class="card">
+                <span class="tag">1:1 Batch</span>
+                <div class="image-container">
+                    <img src="IMG_0799.jpeg" alt="Sp5der P*NK Hoodie Black" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
+                </div>
+                <div class="card-info">
+                    <div class="item-name">Sp5der P*NK Hoodie Black</div>
+                    <div class="item-details">
+                        <span class="price">$70</span>
+                        <select class="size-selector">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                        </select>
+                    </div>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
+                </div>
+            </div>
+
+            <!-- HOODIE 9 -->
+            <div class="card">
+                <span class="tag">1:1 Batch</span>
+                <div class="image-container">
+                    <img src="NO_IMAGE.jpg" alt="Sp5der Web Hoodie Sky Blue" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
+                </div>
+                <div class="card-info">
+                    <div class="item-name">Sp5der Web Hoodie Sky Blue</div>
+                    <div class="item-details">
+                        <span class="price">$70</span>
+                        <select class="size-selector">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                        </select>
+                    </div>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
+                </div>
+            </div>
+
+            <!-- HOODIE 10 -->
+            <div class="card">
+                <span class="tag">1:1 Batch</span>
+                <div class="image-container">
+                    <img src="IMG_0802.jpeg" alt="Sp5der P*NK Hoodie Pink" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
+                </div>
+                <div class="card-info">
+                    <div class="item-name">Sp5der P*NK Hoodie Pink</div>
+                    <div class="item-details">
+                        <span class="price">$70</span>
+                        <select class="size-selector">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                        </select>
+                    </div>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
+                </div>
+            </div>
+
+            <!-- HOODIE 11 -->
+            <div class="card">
+                <span class="tag">1:1 Batch</span>
+                <div class="image-container">
+                    <img src="NO_IMAGE.jpg" alt="Sp5der Wait Web Hoodie Slate Grey" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
+                </div>
+                <div class="card-info">
+                    <div class="item-name">Sp5der Wait Web Hoodie Slate Grey</div>
+                    <div class="item-details">
+                        <span class="price">$70</span>
+                        <select class="size-selector">
+                            <option value="S">Size: S</option>
+                            <option value="M">Size: M</option>
+                            <option value="L">Size: L</option>
+                        </select>
+                    </div>
+                    <button class="btn add-to-cart-btn">Add To Cart</button>
+                </div>
+            </div>
+
+            <!-- HOODIE 12 -->
+            <div class="card">
+                <span class="tag">1:1 Batch</span>
+                <div class="image-container">
+                    <img src="NO_IMAGE.jpg" alt="Sp5der OG Web Hoodie Heather Grey" onerror="this.style.display='none'; this.parentNode.innerText='Image Missing';">
+                </div>
+                <div class="card-info">
+                    <div class="item-name">Sp5der OG Web Hoodie Heather Grey</div>
+                    <div class="item-details">
+                        <span class="price">$70</span>
                         <select class="size-selector">
                             <option value="S">Size: S</option>
                             <option value="M">Size: M</option>
@@ -434,14 +576,14 @@
         </div>
     </main>
 
-    <!-- --- SHOPPING CART SIDEBAR HTML --- -->
+    <!-- --- CART SIDEBAR PANEL --- -->
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
             <h2>Your Cart</h2>
-            <button class="close-cart" onclick="toggleCart()">&times;</button>
+            <button class="close-cart" id="closeCartBtn">&times;</button>
         </div>
         <div class="cart-items" id="cartItems">
-            <!-- JavaScript will insert items here dynamically -->
+            <!-- Items added via JS appear here -->
         </div>
         <div class="cart-footer-box">
             <div class="cart-total">
@@ -453,54 +595,55 @@
     </div>
 
     <footer class="contact-footer" id="contact">
-        <p>&copy; 2026 C.A.H.SELLZ. All rights reserved.</p>
+        <p style="margin-top: 10px; font-size: 0.85rem; color: #444444;">&copy; 2026 C.A.H.SELLZ. All rights reserved.</p>
     </footer>
 
-    <!-- --- SHOPPING CART JAVASCRIPT --- -->
+    <!-- --- ROBUST SHOPPING CART SCRIPT --- -->
     <script>
         let cart = [];
+        const cartSidebar = document.getElementById('cartSidebar');
+        const cartItemsContainer = document.getElementById('cartItems');
+        const cartCountBadge = document.getElementById('cart-count');
+        const cartTotalValue = document.getElementById('cartTotalValue');
 
-        function toggleCart() {
-            document.getElementById('cartSidebar').classList.toggle('open');
-        }
+        // Toggle Sidebar Functions
+        document.getElementById('cartNavButton').addEventListener('click', () => {
+            cartSidebar.classList.add('open');
+        });
 
-        // Add event listeners to all "Add To Cart" buttons
+        document.getElementById('closeCartBtn').addEventListener('click', () => {
+            cartSidebar.classList.remove('open');
+        });
+
+        // Add to Cart Click Listener
         document.querySelectorAll('.add-to-cart-btn').forEach(button => {
             button.addEventListener('click', (e) => {
                 const card = e.target.closest('.card');
                 const name = card.querySelector('.item-name').innerText;
-                const price = parseFloat(card.querySelector('.price').getAttribute('data-price'));
                 const size = card.querySelector('.size-selector').value;
+                const price = 70; // Fixed flat-rate price
 
-                addToCart(name, price, size);
+                const existingItem = cart.find(item => item.name === name && item.size === size);
+
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({ name, price, size, quantity: 1 });
+                }
+
+                updateCartUI();
+                cartSidebar.classList.add('open'); // Open cart to show item was added
             });
         });
 
-        function addToCart(name, price, size) {
-            // Check if item with same size already exists
-            const existingItem = cart.find(item => item.name === name && item.size === size);
-
-            if (existingItem) {
-                existingItem.quantity += 1;
-            } else {
-                cart.push({ name, price, size, quantity: 1 });
-            }
-
-            updateCartUI();
-            // Open the cart automatically when item is added
-            document.getElementById('cartSidebar').classList.add('open');
-        }
-
-        function removeFromCart(index) {
+        // Remove Item function mapped globally so inline HTML onclick calls work seamlessly
+        window.removeFromCart = function(index) {
             cart.splice(index, 1);
             updateCartUI();
         }
 
+        // Render Cart UI elements
         function updateCartUI() {
-            const cartItemsContainer = document.getElementById('cartItems');
-            const cartCount = document.getElementById('cartCount');
-            const cartTotalValue = document.getElementById('cartTotalValue');
-            
             cartItemsContainer.innerHTML = '';
             let total = 0;
             let totalItems = 0;
@@ -515,8 +658,8 @@
                             <div>${item.name}</div>
                             <span>Size: ${item.size} | Qty: ${item.quantity}</span>
                         </div>
-                        <div>
-                            <div style="font-weight: bold; margin-bottom: 5px;">$${item.price * item.quantity}</div>
+                        <div style="text-align: right;">
+                            <div style="font-weight: bold;">$${item.price * item.quantity}</div>
                             <button class="remove-item" onclick="removeFromCart(${index})">Remove</button>
                         </div>
                     </div>
@@ -524,21 +667,19 @@
                 cartItemsContainer.innerHTML += itemHTML;
             });
 
-            cartCount.innerText = totalItems;
+            cartCountBadge.innerText = totalItems;
             cartTotalValue.innerText = `$${total}`;
         }
 
-        // --- PAYMENT SYSTEM INTEGRATION ---
-        function processCheckout() {
+        // Checkout Button Action
+        window.processCheckout = function() {
             if (cart.length === 0) {
                 alert("Your cart is empty!");
                 return;
             }
-
-            alert("Redirecting to secure website checkout payment page...");
             
-            // To make this take real credit card money, use a free integration like Stripe Checkout:
-            // window.location.href = "YOUR_STRIPE_CHECKOUT_LINK";
+            alert("Redirecting to checkout payment portal...");
+            // Link your payment system setup here: e.g., window.location.href = "https://checkout.stripe.com/...";
         }
     </script>
 </body>
