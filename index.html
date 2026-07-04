@@ -598,7 +598,7 @@
         <p style="margin-top: 10px; font-size: 0.85rem; color: #444444;">&copy; 2026 C.A.H.SELLZ. All rights reserved.</p>
     </footer>
 
-    <!-- --- ROBUST SHOPPING CART SCRIPT --- -->
+    <!-- --- AUTOMATED INSTAGRAM ORDERS CART SCRIPT --- -->
     <script>
         let cart = [];
         const cartSidebar = document.getElementById('cartSidebar');
@@ -636,7 +636,7 @@
             });
         });
 
-        // Remove Item function mapped globally so inline HTML onclick calls work seamlessly
+        // Remove Item function mapped globally
         window.removeFromCart = function(index) {
             cart.splice(index, 1);
             updateCartUI();
@@ -671,15 +671,35 @@
             cartTotalValue.innerText = `$${total}`;
         }
 
-        // Checkout Button Action
+        // Checkout Button Action - Creates order text and forwards to IG
         window.processCheckout = function() {
             if (cart.length === 0) {
                 alert("Your cart is empty!");
                 return;
             }
             
-            // This sends them to your Stripe test payment portal securely
-            window.location.href = "https://buy.stripe.com/test_28EfZg68o7KN5vlcJhc7u00";
+            // Build the clean copy-paste text block
+            let orderMessage = "Yo! I want to order from C.A.H.SELLZ:\n\n";
+            let total = 0;
+            
+            cart.forEach(item => {
+                orderMessage += `• ${item.name} \n  Size: ${item.size} | Qty: ${item.quantity}\n\n`;
+                total += item.price * item.quantity;
+            });
+            
+            orderMessage += `Total Order: $${total}`;
+
+            // Create a temporary hidden text element to auto-copy the message
+            const tempTextArea = document.createElement('textarea');
+            tempTextArea.value = orderMessage;
+            document.body.appendChild(tempTextArea);
+            tempTextArea.select();
+            document.execCommand('copy');
+            document.body.removeChild(tempTextArea);
+
+            // Alert the user and open Instagram
+            alert("📋 Order details copied to clipboard!\n\nPaste this message directly into our Instagram DM to purchase.");
+            window.open("https://instagram.com/C.A.H.SELLZ", "_blank");
         }
     </script>
 </body>
